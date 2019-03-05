@@ -25,4 +25,12 @@ pytorch
 当完成计算后可以通过调用`.backward()`，便可以自动的得到所有梯度。对于该tensor对象的梯度信息将会被加入`.grad`属性。
 如果想禁止tensor追踪历史梯度，可以调用`.detach()`来，从历史计算中分离，并且未来的计算也不会被追踪。
 为了防止历史追踪（和内存使用），也可以将代码块包裹在 `with torch.no_grad():` 下。
+
 在自动梯度实现中还有另一个重要的类 `Function`
+**Tensor** 和 **Function** 相互关联并生成一个非循环图，将完整的计算历史编码。每个tensor对象有一个`.grad_fn`属性依赖于已经创建的Tensor的`Function`（除非这个tensor是用户手动创建的-它的`.grad_fn`是`none`） 。
+
+如果想要计算导数，可以在`Tensor`中调用`.backward()`，如果`tensor`对象是一个标量（只有一个元素），不用给`.backward()`传递参数，如果含有多个元素，需要指定一个`gradient`参数用来表示对应tensor匹配的形状。
+
+通常来讲，`torch.autograd`是一个 vector-Jacobian 积 计算引擎。给定任意一个向量$v = (v_1 v_2 ... v_m)^T$ 计算点积$v^T.J$, 如果$v$恰好是一个标量函数$l=g(\vec{y})$的梯度，也就是说$v=(\frac{\partial{l}}{\partial{y_1}} ... \frac{\partial{l}}{\partial{y_m}} )$, 然后通过链式法则，vector-Jacobian 
+
+
