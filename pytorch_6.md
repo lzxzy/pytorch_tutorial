@@ -16,6 +16,7 @@
 接下来我们将对模型进行训练，实现如下两点：
 + 对学习率自动调节
 + 保存最优模型
+
 其中参数`scheduler`是一个学习率指导对象来自`torch.optim.lr_scheduler`
 ### ConvNet as fixed feature extractor
 接下来我们需要固定除全连接层外所有层。我们需要将`requires_grad == False`来固定参数，使得在backward过程中不计算梯度。
