@@ -110,3 +110,17 @@ modelB.eval()
 modelA.train()
 modelB.train()
 ```
+
+适用情况：多模型保存如：GAN模型，sequence-to-sequence 模型，或者集成模型。和保存通用检查点模型相似。
+
+## Warmstrating Model Using Parameters from a Different Model
+**Save**
+
+`torch.save(modelA.state_dict(), PATH)`
+
+**Load**
+
+```
+modelB = TheModelBClass(*args, **kwargs)
+modelB.load_state_dict(torch.load(PATH), strict=False)
+```
