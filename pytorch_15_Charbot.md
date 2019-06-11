@@ -44,3 +44,5 @@ CMDC数据集包含有丰富的电影角色对话：
 1、使用`voc.trim`函数，剔除阈值`MIN_COUNT`之下的单词
 
 2、用剔除后的单词过滤输出句子对
+
+## Prepare Data for Models
